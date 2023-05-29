@@ -1,0 +1,298 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: content-box;
+}
+body, p,h1,h2,h3,span{
+    font-family: 'poppins', sans-serif;
+    /* font-weight: 100; */
+    font-size: 13px;
+    
+}
+a{
+    text-decoration: none !important;
+    font-family: 'poppins', sans-serif;
+}
+
+
+@media (width < 600px){
+    .navbar-title{
+        text-align: center !important;
+        margin-left: 60px !important;
+        color: white !important;
+    }
+    .nav{
+        background-color: #e0416e !important;
+    }
+
+    .drop-menu{
+        left: -100px !important;
+        border: none !important;
+    }
+}
+
+
+@media (width >= 700px){
+    .navbar-title{
+        text-align: left !important;
+        margin-left: 0px !important;
+        color: #FFF !important;
+    }
+    .nav{
+        background-color: #e0416e !important;
+    }
+
+    .drop-menu{
+        left: -120px !important;
+        border: none !important;
+    }
+}
+
+
+/* Cat mobile menu start */
+
+@media (width < 767px){
+    #cat-mobile-menu{
+        width: 65%;
+        height: 100vh;
+        background-color: #5c011b;
+        position: fixed;
+        top: 0;
+        z-index: 99999 !important;
+        transition: all 2s;
+        
+    }
+    .category-mobile{
+        display: none;
+    }
+    
+    #close-menu{
+        color: #fff !important;
+        position: absolute !important;
+        top: 10px !important;
+        right: 10px !important;
+        z-index: 99999 !important;
+    }
+    .cat-menu{
+        display: none !important;
+    }
+   
+
+    .cat-mobile-title h1{
+        color: #fff;
+        padding: 20px;
+        text-align: center;
+        
+
+    }
+    .category-list{
+        height: 60vh;
+        overflow: auto; 
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+        position: absolute;
+        top: 120px;
+        left: 0;
+        margin-left: 15px;
+    }
+
+   
+    .category-list a{
+        display: block;
+        padding: 7px;
+        padding-left: 12px;
+        font-family: 'poppins', sans-serif;
+        font-size: 16px;
+        text-decoration: none;
+        color: #fff;
+       
+    }
+
+    .category-list a:hover{
+        background-color: #bd1645;
+        color: #ffffff;
+    }
+    
+    .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 2;
+      }
+
+      .carouse{
+        top: -20px !important;
+    }
+
+    .col .crd{
+        width: 140px !important;
+        max-height: max-content;transition: all 2s;
+    }
+
+    #login{
+        width: 100% !important;
+    }
+    #login .d-flex div{
+        padding-left: 24px !important;
+        padding-right: 24px !important;
+    }
+
+    #vendor_form{
+        width: 100% !important;
+    }
+}
+
+/* category mobile menu end */
+
+@media (768px <= width <= 991px) {
+    .cat-mobile-title h1{
+        display: none;
+
+    }
+    .bg{
+        background-color: #f8f8f8;
+    }
+
+    .category-list{
+        width: 300px !important;
+        position: absolute;
+        left: 10px;
+        top: 70px;
+        z-index: 999999 !important;
+        overflow: auto;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+        height: 50vh;
+        display: none ;
+        
+       
+    }
+    .category-list::-webkit-scrollbar{
+        width: 50px !important;
+    }
+    .category:hover .category-list{
+        display: block !important;
+    }
+    
+    .category-list a{
+        display: block;
+        padding: 10px;
+        font-family: 'poppins', sans-serif;
+        font-size: 16px;
+        text-decoration: none;
+        color: #a09f9f;
+        z-index: 999999 !important;
+        position: relative;
+        background-color: #fffefe;
+    }
+    
+    .category-list a:hover{
+        background-color: #4d93fc;
+        color: #fff;
+        margin-left: 18px;
+        transition: all 1s;
+    }
+
+
+/* carousel */
+.carouse{
+    width: 65% !important;
+    position: absolute;
+    left: 250px !important;
+    top: -70px !important;
+}
+  }
+
+
+/* category large screen menu start */
+@media (width >= 992px){
+    .cat-mobile-title h1{
+        display: none;
+
+    }
+
+.category-list{
+    width: 200px !important;
+    position: absolute;
+    left: 130px;
+    top: 70px;
+    z-index: 999999 !important;
+    overflow: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    height: 60vh;
+    display: none ;
+    width: 4vw;
+    
+   
+}
+.category-list::-webkit-scrollbar{
+    width: 0px !important;
+}
+.category:hover .category-list{
+    display: block !important;
+}
+
+.category-list a{
+    display: block;
+    padding: 10px;
+    font-family: 'poppins', sans-serif;
+    font-size: 16px;
+    text-decoration: none;
+    color: #a09f9f;
+    position: relative;
+    background-color: #fffefe;
+}
+
+.category-list a:hover{
+    background-color:#e66086;
+    color: #fff;
+    margin-left: 18px;
+    transition: all 1s;
+}
+
+}
+
+
+footer a, footer p, footer h3{
+    color: #9e9e9d;
+}
+footer a:hover{
+    color: #fff;
+}
+footer h2{
+    color: #fff;
+    font-size: 20px;
+}
+
+
+/* regstration form */
+.gradient-custom-3 {
+    /* fallback for old browsers */
+    background: #84fab0;
+    
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: -webkit-linear-gradient(to right, rgba(132, 250, 176, 0.5), rgba(143, 211, 244, 0.5));
+    
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: linear-gradient(to right, rgba(132, 250, 176, 0.5), rgba(143, 211, 244, 0.5))
+    }
+    .gradient-custom-4 {
+    /* fallback for old browsers */
+    background: #84fab0;
+    
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: -webkit-linear-gradient(to right, rgba(132, 250, 176, 1), rgba(143, 211, 244, 1));
+    
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: linear-gradient(to right, rgba(132, 250, 176, 1), rgba(143, 211, 244, 1))
+    }
+
+    .bg-whit{
+        background-color: #ffffff3d;
+    }
+
+  
