@@ -1,6 +1,6 @@
 <?php 
 session_start();
-require "../database.php";
+require "./database.php";
 require_once "emailVerificationController.php";
 use PHPMailer\PHPMailer\PHPMailer;
 
@@ -52,7 +52,8 @@ if (isset($_POST['register'])) {
 
            if ($result) {
             sendVerificationCode($phpmailer, $email, $token);
-            $_SESSION['reg-success'] = true;
+            $_SESSION['message'] = 'Your registration was successfull. A verification email has been sent to you';
+            $_SESSION['alert-type'] = 'success';
             header("Location: /login");
             exit();
            }
@@ -86,26 +87,33 @@ if (isset($_POST['login'])) {
         $row = $sql->fetch_assoc();
 
         if ($row['email_verified'] == 0) {
-           $_SESSION['email_not-verified'] = true;
+            $_SESSION['message'] = 'Please check your email to verify your email address';
+            $_SESSION['alert-type'] = 'error';
+
            header("Location: /login");
            exit();
         }
 
         if (empty($errors)) {
            if ($row && password_verify($password, $row['password']) && $row['role'] === 'user') {
-            $_SESSION['id'] = $row['id'];
+            $_SESSION['user_id'] = $row['id'];
             $_SESSION['name'] = $row['fullname'];
             $_SESSION['email'] = $row['email'];
-            $_SESSION['login-success'] = true;
+            $_SESSION['message'] = 'Login successful';
+            $_SESSION['alert-type'] = 'success';
 
             header("Location: /user/dashboard");
             exit();
 
            }elseif ($row && password_verify($password, $row['password']) && $row['role'] === 'vendor'){
-            $_SESSION['id'] = $row['id'];
+            $_SESSION['vendor_id'] = $row['id'];
             $_SESSION['name'] = $row['fullname'];
             $_SESSION['email'] = $row['email'];
-            $_SESSION['login-success'] = true;
+            $_SESSION['shopname'] = $row['shop_name'];
+            $_SESSION['phone'] = $row['phone'];
+            $_SESSION['message'] = 'Login successful';
+            $_SESSION['alert-type'] = 'success';
+
 
             header("Location: /vendor/dashboard");
             exit();
@@ -126,43 +134,3 @@ if (isset($_POST['login'])) {
 }//End method
 
 
-// admin login
-if (isset($_POST['admin_login'])) {
-    $email = $_POST['email'];
-    $password = $_POST['password'];
-    $email = filter_var($email, FILTER_SANITIZE_EMAIL);
-    $password = filter_var($password, FILTER_SANITIZE_STRING);
-
-    $error= [];
-    if (!empty($email) && !empty($password)) {
-       if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $error['email'] = "Invalid email address format";
-       }
-
-       $sql = $conn->query("SELECT * FROM `admin` WHERE `email` = '$email'");
-        $row = $sql->fetch_assoc();
-
-
-        if (empty($errors)) {
-           if ($row && password_verify($password, $row['password']) && $row['role'] === 'admin') {
-            $_SESSION['admin-id'] = $row['id'];
-            $_SESSION['email'] = $row['email'];
-            $_SESSION['success'] = true;
-
-            header("Location: /admin/dashboard");
-            exit();
-        }else{
-               $error['invalid-field'] = "Wrong email or password";
-
-           }
-        }
-    }else{
-        $error['invalid-field'] = 'Fields must not be empty';
-    }
-
-    if (!empty($error)) {
-        $_SESSION['login_data'] = $_POST;
-        $_SESSION['error'] = $error;
-        header("Location: /admin/login");
-    }
-}//End Method

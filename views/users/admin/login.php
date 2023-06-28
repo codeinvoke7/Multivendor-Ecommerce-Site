@@ -1,10 +1,5 @@
 <?php
 session_start();
-if (isset($_SESSION['error'])) {
-	echo 'yea';
-}else{
-	echo 'nah';
-}
 $errors = $_SESSION['error'] ?? array();
 $form_data = isset($_SESSION['login_data']) ? $_SESSION['login_data'] : array();
 ?>
@@ -49,7 +44,7 @@ $form_data = isset($_SESSION['login_data']) ? $_SESSION['login_data'] : array();
 										<h3 class="">Sign in</h3>
 									<div class="form-body">
 									<?php if(!empty($errors['invalid-field'])) echo "<p class='text-danger'>" . $errors['invalid-field'] . "</p>"?>
-										<form action="/controller/authController.php" method="post" class="row g-3">
+										<form action="/admin/auth" method="post" class="row g-3">
 											<div class="col-12">
 												<label for="inputEmailAddress" class="form-label">Email Address</label>
 												<input type="email" class="form-control" name="email" id="inputEmailAddress" placeholder="Email Address"

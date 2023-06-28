@@ -1,7 +1,4 @@
 
-
-
-
 <div id="navbar" class="d-flex container sticky-top justify-content-between mt-3 bg-dark text-white p-2 rounded">
       <h1>Dashboard</h1>
       <div class="d-flex">

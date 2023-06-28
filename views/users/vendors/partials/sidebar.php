@@ -27,14 +27,14 @@
 						<div class="menu-title">Manage Products</div>
 					</a>
 					<ul>
-						<li> <a href="/vendor/all/products"><i class="bx bx-right-arrow-alt"></i>Products</a>
+						<li> <a href="/vendor/all/products"><i class="bx bx-right-arrow-alt"></i>All Products</a>
 						</li>
                         <li> <a href="/vendor/add/product"><i class="bx bx-right-arrow-alt"></i>Add Product</a>
 						</li>
 					</ul>
 				</li>
                 <li>
-					<a href="/vendor/orders">
+					<a href="/vendor/order">
 						<div class="parent-icon"><i class='bx bx-dollar'></i>
 						</div>
 						<div class="menu-title">Orders</div>

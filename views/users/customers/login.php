@@ -5,80 +5,9 @@ $form_data = isset($_SESSION['login_data']) ? $_SESSION['login_data'] : array();
 
 require "views/public/partials/header.php"
 ?>
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<?php
+<!-- <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> -->
 
-if (isset($_SESSION['reg-success']) && $_SESSION['reg-success']) {
-	unset($_SESSION['reg-success'])
-	?>
-	<script>
-		swal.fire({
-				title: "Good job!",
-				text: "Your registration was successfull. A verification email has been sent to you",
-				icon: "success",
-				showConfirmButton: false,
-				toast: true,
-				timer: 4000,
-			});
-	</script>
-<?php
-}
-
-if (isset($_SESSION['email_verified']) && $_SESSION['email_verified']) {
-	unset($_SESSION['email_verified'])
-	?>
-	<script>
-		swal.fire({
-				position: "top-end",
-				title: "Email Verification",
-				text: "Email Verified. Proceed to login to dashboard",
-				icon: "success",
-				showConfirmButton: false,
-				toast: true,
-				timer: 4000,
-
-			});
-	</script>
-<?php
-}
-
-if (isset($_SESSION['email_not-verified']) && $_SESSION['email_not-verified']) {
-	unset($_SESSION['email_not-verified'])
-	?>
-	<script>
-		swal.fire({
-				position: "top-end",
-				title: "Email Verification",
-				text: "You have not verified your email. kindly check your mailbox for a verification link.",
-				icon: "error",
-				showConfirmButton: false,
-				toast: true,
-				timer: 4000,
-
-			});
-	</script>
-	<?php
-}
-
-if (isset($_SESSION['pass_reset']) && $_SESSION['pass_reset']) {
-	unset($_SESSION['pass_reset'])
-	?>
-	<script>
-		swal.fire({
-				position: "top-end",
-				title: "Password Rest",
-				text: "You successfully changed your password. Proceed to login",
-				icon: "success",
-				showConfirmButton: false,
-				toast: true,
-				timer: 4000,
-
-			});
-	</script>
-	<?php
-}
-?>
 <!-- header end -->
 
 <section class="h-100 gradient-custom-3" 
@@ -101,7 +30,7 @@ if (isset($_SESSION['pass_reset']) && $_SESSION['pass_reset']) {
                   <h4 class="mt-1 mb-5 pb-1">Sign in</h4>
                 </div>
 				<?php if(!empty($errors['invalid-fields'])) echo "<p class='text-danger'>" . $errors['invalid-fields'] . "</p>"?>
-                <form action="/controller/authController.php" method="post" class="signin-form">
+                <form action="/auth" method="post" class="signin-form">
 			      		<div class="form-group mb-3">
 			      			<label class="label" for="email-address">Email</label>
 			      			<input type="email"

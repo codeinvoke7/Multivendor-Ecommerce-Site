@@ -1,3 +1,7 @@
+<?php
+require "./database.php";
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,8 +15,14 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.min.js" integrity="sha384-Y4oOpwW3duJdCWv5ly8SCFYWqFDsfob/3GkgExXKV4idmbt98QcxXYs9UoXAB7BZ" crossorigin="anonymous"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined"  rel="stylesheet">
+    <link href="/views/users/vendors/assets/css/icons.css" rel="stylesheet">
+
+    <!-- toastr -->
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" >
+ <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 </head>
 <body>
     <div class="container-fluid  d-none d-md-flex d-lg-flex justify-content-around" id="top-bar" style="background: #f1f1f2">
@@ -24,8 +34,12 @@
         </div>
         <div class="mt-2 d-flex">
             <p><a class="text-dark text-decoration-none me-2" href="/vendor/sign-up">Become a Seller</a></p>
-            <span class="text-dark me-2"> | </span>
-            <p><a  class="text-dark text-decoration-none" href="/login">Login</a></p>
+            <?php 
+        if (isset($_SESSION['user_id'])):?> 
+        <?php else:?>
+          <span class="text-dark me-2"> | </span>
+          <p><a  class="text-dark text-decoration-none" href="/login">Login</a></p>
+              <?php endif?>
         </div>
     </div>
     <nav class="navbar navbar-expand-lg navbar-expand-md nav shadow text-white">
@@ -34,47 +48,81 @@
             
         <div>
           <h1>  <a class="navbar-brand navbar-title" href="/">M-Vendor</a></h1>
-        </div><div class="nav-item d-flex category ">
+        </div><div class="nav-item d-flex category">
           <div class=""> 
            <span class="material-icons-outlined me-2 fs-3 mt-2 cat-menu nav-link text-white">menu</span>
       </div>
-<div class=" category-list shadow d-none">
-        <a href="#">Electronics</a>
-        <a href="#">Electronics</a>
-        <a href="#">Electronics</a>
-        <a href="#">Electronics</a>
-        <a href="#">Electronics</a>
-        <a href="#">Electronics</a>
-        <a href="#">Electronics</a>
-        <a href="#">Electronics</a>
-        <a href="#">Electronics</a>
-        <a href="#">Electronics</a>
-        <a href="#">Electronics</a>
-        <a href="#">Electronics</a>
-        <a href="#">Electronics</a>
+<div class="category-list shadow d-none">
+<?php
+            $icons = [
+              'Electronics' => 'bx bx-tv',
+              'Fashion' => 'bx bx-closet',
+              'Home & Furniture' => 'bx bx-chair',
+              'Health & Wellness' => 'bx bx-atom',
+              'Automotive' => 'bx bx-car',
+              'Sports & Outdoors' => 'bx bx-football',
+              'Books & Media' => 'bx bx-book',
+              'Baby & Kids' => 'bx bx-wink-tongue',
+              'Groceries & Food' => 'bx bx-restaurant',
+              'Office Supplies' => 'bx bx-pen',
+              'Pet Supplies' => 'bx bx-bone',
+              'Digital Products' => 'bx bx-film',
+
+            ];
+         $sql = $conn->query("SELECT * FROM `categories`");
+         while($row = $sql->fetch_assoc()):
+          $icon = isset($icons[$row['category']]) ? $icons[$row['category']] : 'bx bx-star';
+          ?>
+        <a href="/product/category/<?= $row['id'] . '/' . $row['slug'] ?>">
+        <i class="<?= $icon ?>"></i>
+        <?= $row['category'] ?></a>
+        <?php endwhile ?>
     </div>
 
       </div>
-          
-        <div class="d-lg-none d-sm-flex text-white dropdown">
+       
+        <div class="d-md-none d-sm-flex text-white dropdown">
             <span class="material-icons-outlined"  role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 account_circle
                 </span>
+                 
             <ul class="dropdown-menu drop-menu shadow" aria-labelledby="accountDropdown">
-              <li><a class="dropdown-item" href="#">Login</a></li>
-              <li><a class="dropdown-item" href="#">Register</a></li>
-              <li><a class="dropdown-item" href="#">My Account</a></li>
+        <?php 
+        if (isset($_SESSION['user_id'])):?>
+        <li><a class="dropdown-item" href="/user/dashboard">My Account</a></li>
               <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item" href="#">Logout</a></li>
+              <li><a class="dropdown-item" href="/logout">Logout</a></li>
+              <?php else: ?>
+              <li><a class="dropdown-item" href="/login">Login</a></li>
+              <li><a class="dropdown-item" href="/registration">Register</a></li>
+              <?php endif?>
             </ul>
                 
   </div>
+<!-- mobile minicart start-->
+  <div class="d-md-none d-sm-block text-white me-4 cart-text">
+  <i class="bx bx-cart fs-2 fw-bold position-relative"> 
+     <span class="cartQty position-absolute start-100 translate-middle badge bg-white text-success"
+          style="font-size: 12px; border-radius: 50%; top: 10px"></span>
+         </i>
+        <div class="bg-white border rounded minicart-wrapper">
+        <!-- Start mini cart start with ajax -->
+        <div class="miniCart"></div>
 
-  <div class="d-lg-none d-sm-block text-white me-4">
-    <span class="material-icons-outlined">
-        shopping_cart
-        </span>
+        <!-- End mini cart start with ajax -->
+        <div class="shopping-cart-footer">
+            <div class="shopping-cart-total d-flex justify-content-between px-3 pt-3 hr">
+                <h4 class="text-secondary fs-6 fw-bold">Total </h4>
+                <span id="cartSubTotal" class="text-success text-end"></span>
+            </div>
+            <div class="shopping-cart-button p-3">
+                <a href="/mycart" class="outline btn borderBtn me-5">View cart</a>
+                <a href="/checkout" class="btn fillBtn">Checkout</a>
+            </div>
+        </div>
+    </div>
 </div>
+<!-- mobile minicart end -->
 
           <div class=" collapse navbar-collapse" id="navbarTogglerDemo02">
             <div class="d-sm-none d-md-flex disp mx-5 container-fluid justify-content-center">
@@ -83,11 +131,11 @@
                     <span class="material-icons-outlined input-group-text" id="basic-addon1">
                         search
                         </span>
-                  <input type="search" class="form-control" placeholder="Search" aria-label="Search" aria-describedby="basic-addon1">
+                  <input type="search" name="search" class="form-control" placeholder="Search" aria-label="Search" aria-describedby="basic-addon1">
                 </div>
               </form>
             </div>
-              <div class="d-sm-none d-md-flex disp container justify-content-end text-center">
+         <div class="d-sm-none d-md-flex disp container justify-content-end text-center">
                 
                 <div class="mx-3">
                     <span class="material-icons-outlined">
@@ -95,25 +143,53 @@
                         </span>
                     <p>Wishlist</p>
                 </div>
-                <div class=" mx-3">
-                    <span class="material-icons-outlined">
-                        shopping_cart
-                        </span>
-                        <p>Your Cart</p>
-                </div>
-                <div class="d-md-block d-sm-none dropdown">
+
+                <!-- minicart start -->
+                <div class="mx-3 cart-text">
+                 
+                <i class="bx bx-cart fs-5 fw-bold position-relative"> 
+     <span class="cartQty position-absolute start-100 translate-middle badge bg-white text-success"
+          style="font-size: 12px; border-radius: 50%; top: 10px"></span>
+         </i>
+        <p>Your Cart</p>
+                       
+                      
+           <div class="bg-white border rounded minicart-wrapper">
+        <!-- Start mini cart start with ajax -->
+        <div class="miniCart"></div>
+
+        <!-- End mini cart start with ajax -->
+        <div class="shopping-cart-footer">
+            <div class="shopping-cart-total d-flex justify-content-between px-3 pt-3 hr">
+                <h4 class="text-secondary fs-6 fw-bold">Total </h4>
+                <span id="cartSubTotal" class="text-success text-end"></span>
+            </div>
+            <div class="shopping-cart-button p-3">
+                <a href="/mycart" class="outline btn borderBtn me-5">View cart</a>
+                <a href="/checkout" class="btn fillBtn">Checkout</a>
+            </div>
+        </div>
+    </div>
+         </div>
+                <!-- mini cart end -->
+
+                <div class="d-md-block d-sm-none dropdown" style="z-index: 9999 !important;">
                     <span class="material-icons-outlined d-lg-block ">
                         account_circle
                         </span>
-                        <a style="font-size: 13px" class="nav-link text-decoration-none text-dark  text-white" href="javascript:void(0)" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <a style="font-size: 16px" class="nav-link text-decoration-none text-dark  text-white" href="javascript:void(0)" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Account
                           </a>
             <ul class="dropdown-menu drop-menu shadow" aria-labelledby="accountDropdown">
-              <li><a class="dropdown-item" href="#">Login</a></li>
-              <li><a class="dropdown-item" href="#">Register</a></li>
-              <li><a class="dropdown-item" href="#">My Account</a></li>
+            <?php 
+        if (isset($_SESSION['user_id'])):?>
+        <li><a class="dropdown-item" href="/user/dashboard">My Account</a></li>
               <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item" href="#">Logout</a></li>
+              <li><a class="dropdown-item" href="/logout">Logout</a></li>
+              <?php else: ?>
+              <li><a class="dropdown-item" href="/login">Login</a></li>
+              <li><a class="dropdown-item" href="/registration">Register</a></li>
+              <?php endif?>
             </ul>
                            
           </div>
@@ -143,19 +219,30 @@
         <a href="/login" class="text-white fs-6">Login</a></p>
         <div class="nav-item d-flex category">
 <div class="w-100 category-list shadow">
-        <a href="#">Electronics</a>
-        <a href="#">Electronics</a>
-        <a href="#">Electronics</a>
-        <a href="#">Electronics</a>
-        <a href="#">Electronics</a>
-        <a href="#">Electronics</a>
-        <a href="#">Electronics</a>
-        <a href="#">Electronics</a>
-        <a href="#">Electronics</a>
-        <a href="#">Electronics</a>
-        <a href="#">Electronics</a>
-        <a href="#">Electronics</a>
-        <a href="#">Electronics</a>
+<?php
+      $icons = [
+        'Electronics' => 'bx bx-tv',
+        'Fashion' => 'bx bx-closet',
+        'Home & Furniture' => 'bx bx-chair',
+        'Health & Wellness' => 'bx bx-atom',
+        'Automotive' => 'bx bx-car',
+        'Sports & Outdoors' => 'bx bx-football',
+        'Books & Media' => 'bx bx-book',
+        'Baby & Kids' => 'bx bx-wink-tongue',
+        'Groceries & Food' => 'bx bx-restaurant',
+        'Office Supplies' => 'bx bx-pen',
+        'Pet Supplies' => 'bx bx-bone',
+        'Digital Products' => 'bx bx-film',
+
+      ];
+         $sql = $conn->query("SELECT * FROM `categories`");
+         while($row = $sql->fetch_assoc()):
+          $icon = isset($icons[$row['category']]) ? $icons[$row['category']] : 'bx bx-star';
+          ?>
+        <a href="/product/category/<?= $row['id'] . '/' . $row['slug'] ?>">
+        <i class="<?= $icon ?>"></i>
+        <?= $row['category'] ?></a>
+        <?php endwhile ?>
 
         <div class="m-3 d-md-none d-flex "> 
       <span class="material-icons-outlined text-white mt-1 me-1" style="font-size: 16px">

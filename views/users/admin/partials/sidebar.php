@@ -1,3 +1,4 @@
+
 <div class="wrapper">
 		<!--sidebar wrapper -->
 		<div class="sidebar-wrapper" data-simplebar="true">
@@ -27,18 +28,24 @@
 						<div class="menu-title">Manage Products</div>
 					</a>
 					<ul>
-						<li> <a href="/admin/all/products"><i class="bx bx-right-arrow-alt"></i>Products</a>
+						<li> <a href="/admin/all/products"><i class="bx bx-right-arrow-alt"></i>All Products</a>
 						</li>
                         <li> <a href="/admin/add/product"><i class="bx bx-right-arrow-alt"></i>Add Product</a>
 						</li>
 					</ul>
 				</li>
                 <li>
-					<a href="/admin/orders">
-						<div class="parent-icon"><i class='bx bx-dollar'></i>
+					<a href="javascript:;" class="has-arrow">
+						<div class="parent-icon"><i class="bx bx-category"></i>
 						</div>
-						<div class="menu-title">Orders</div>
+						<div class="menu-title">Manage Orders</div>
 					</a>
+					<ul>
+						<li> <a href="/pending/order"><i class="bx bx-right-arrow-alt"></i>Pending Orders</a>
+						</li>
+                        <li> <a href="/admin/dashboard"><i class="bx bx-right-arrow-alt"></i>Orders</a>
+						</li>
+					</ul>
 				</li>
 				<li>
 					<a href="javascript:;" class="has-arrow">
@@ -47,39 +54,69 @@
 						<div class="menu-title">Manage Brand</div>
 					</a>
 					<ul>
-						<li> <a href="/admin/all/brands"><i class="bx bx-right-arrow-alt"></i>All Brands</a>
+						<li> <a href="/all/brands"><i class="bx bx-right-arrow-alt"></i>All Brands</a>
 						</li>
-                        <li> <a href="/admin/add/brand"><i class="bx bx-right-arrow-alt"></i>Add Brand</a>
+                        <li> <a href="/add/brand"><i class="bx bx-right-arrow-alt"></i>Add Brand</a>
 						</li>
 					</ul>
 				</li>
-
-				<li class="mm-active">
-					<a class="has-arrow" href="javascript:;" aria-expanded="true">
+				<li>
+					<a href="javascript:;" class="has-arrow">
 						<div class="parent-icon"><i class="bx bx-category"></i>
 						</div>
 						<div class="menu-title">Manage Category</div>
 					</a>
-					<ul class="mm-collapse mm-show" style="">
-						<li> <a class="has-arrow" href="javascript:;"><i class="bx bx-right-arrow-alt"></i>Category</a>
-						<ul class="mm-collapse">
-						<li> <a href="/admin/all/categories"><i class="bx bx-right-arrow-alt"></i>All Categories</a>
+					<ul>
+					<li> <a href="/all/categories"><i class="bx bx-right-arrow-alt"></i>All Categories</a>
 						</li>
-                        <li> <a href="/admin/add/category"><i class="bx bx-right-arrow-alt"></i>Add Category</a>
+                        <li> <a href="/add/category"><i class="bx bx-right-arrow-alt"></i>Add Category</a>
 						</li>
 					</ul>
-					<li> <a class="has-arrow" href="javascript:;"><i class="bx bx-right-arrow-alt"></i>Sub-Category</a>
-						<ul class="mm-collapse">
-						<li> <a href="/admin/all/sub-categories"><i class="bx bx-right-arrow-alt"></i>All Sub-Categories</a>
+				</li>
+
+				<li>
+					<a href="javascript:;" class="has-arrow">
+						<div class="parent-icon"><i class="bx bx-category"></i>
+						</div>
+						<div class="menu-title">Manage Sub-category</div>
+					</a>
+					<ul>
+					<li> <a href="/all/subcategories"><i class="bx bx-right-arrow-alt"></i>All Sub-Categories</a>
 						</li>
-                        <li> <a href="/admin/add/sub-category"><i class="bx bx-right-arrow-alt"></i>Add Sub-Category</a>
-						</li>
-					</ul>
+						<li> <a href="/add/subcategory"><i class="bx bx-right-arrow-alt"></i>Add Sub-Category</a>
 						</li>
 					</ul>
 				</li>
 
 
+				
+				<li class="menu-label">UI Elements</li>
+				<li>
+					<a href="javascript:;" class="has-arrow">
+						<div class="parent-icon"><i class="bx bx-category"></i>
+						</div>
+						<div class="menu-title">Manage Customers</div>
+					</a>
+					<ul>
+						<li> <a href="/active/customer"><i class="bx bx-right-arrow-alt"></i>Active Customers</a>
+						</li>
+                        <li> <a href="/inactive/customer"><i class="bx bx-right-arrow-alt"></i>Inactive Customers</a>
+						</li>
+					</ul>
+				</li>
+				<li>
+					<a href="javascript:;" class="has-arrow">
+						<div class="parent-icon"><i class="bx bx-category"></i>
+						</div>
+						<div class="menu-title">Manage Vendor</div>
+					</a>
+					<ul>
+						<li> <a href="/active/vendor"><i class="bx bx-right-arrow-alt"></i>Active Vendor</a>
+						</li>
+                        <li> <a href="/inactive/vendor"><i class="bx bx-right-arrow-alt"></i>Inactive Vendor</a>
+						</li>
+					</ul>
+				</li>
 				<li>
 					<a href="javascript:;" class="has-arrow">
 						<div class="parent-icon"><i class="bx bx-category"></i>
@@ -93,7 +130,19 @@
 						</li>
 					</ul>
 				</li>
-				<li class="menu-label">UI Elements</li>
+				<li>
+					<a href="javascript:;" class="has-arrow">
+						<div class="parent-icon"><i class="bx bx-category"></i>
+						</div>
+						<div class="menu-title">Manage Coupon</div>
+					</a>
+					<ul>
+						<li> <a href="/all/coupon"><i class="bx bx-right-arrow-alt"></i>All Coupons</a>
+						</li>
+                        <li> <a href="/add/coupon"><i class="bx bx-right-arrow-alt"></i>Add Coupon</a>
+						</li>
+					</ul>
+				</li>
 				<li>
 					<a href="widgets.html">
 						<div class="parent-icon"><i class='bx bx-cookie'></i>

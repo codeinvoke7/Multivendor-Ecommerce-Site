@@ -20,7 +20,7 @@ require "views/public/partials/header.php"
               <h3 class="text-uppercase text-center mb-4">Create an account</h3>
 				<p class="text-danger"></p>
 				<?php if(!empty($errors['form-error'])) echo "<p class='text-danger'>" . $errors['form-error'] . "</p> "  ?>
-              <form action="controller/authcontroller.php" method="post">
+              <form action="/auth" method="post">
 				<input type="hidden" name="role" value="user">
 
                 <div class="form-outline mb-2">

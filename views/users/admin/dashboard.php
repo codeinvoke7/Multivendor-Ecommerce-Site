@@ -9,7 +9,8 @@ include "partials/sidebar.php";
 
 // <!--start sidebar wrapper -->
 include "partials/header.php";
-// <!--end sidebar wrapper -->
+
+
 ?>
 		<!--start page wrapper -->
 		

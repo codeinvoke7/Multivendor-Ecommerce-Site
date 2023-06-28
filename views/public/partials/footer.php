@@ -1,4 +1,9 @@
  <!-- footer start -->
+ <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+ <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+ 
+ 
  <footer class="footer-02 bg-dark">
 			<div class="container">
 				<div class="row justify-content-center">
@@ -106,5 +111,40 @@
 
         <!-- main js -->
         <script src="/views/public/assets/js/main.js"></script>
+		<script src="/views/public/assets/js/locationApi.js"></script>
+		<script src="/views/public/assets/js/cart.js"></script>
+		<script src="/views/users/admin/assets/js/validate.min.js"></script>
+		<script src="/views/users/admin/assets/js/validate.js"></script>
+
+
+		<?php
+if (isset($_SESSION['message'])): ?>
+	<script>
+		// Make an AJAX request to display the toastr notification
+		var type = "<?php echo $_SESSION['alert-type']; ?>";
+		var message = "<?php echo $_SESSION['message']; ?>";
+
+		switch (type) {
+			case 'info':
+				toastr.info(message);
+				break;
+			case 'success':
+				toastr.success(message);
+				break;
+			case 'warning':
+				toastr.warning(message);
+				break;
+			case 'error':
+				toastr.error(message);
+				break;
+		}
+	</script>
+	<?php
+	// Remove the message and alert type from session after displaying
+	unset($_SESSION['message']);
+	unset($_SESSION['alert-type']);
+	?>
+<?php endif; 
+?>
     </body>
 </html>

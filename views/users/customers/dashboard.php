@@ -1,7 +1,6 @@
 <?php 
 require "controller/sessionController.php";
-// $errors = $_SESSION['errors'] ?? array();
-// $form_data = isset($_SESSION['login_data']) ? $_SESSION['login_data'] : array();
+userSession();
 
 require "views/public/partials/header.php";
 require "views/users/customers/partials/dash_header.php";
